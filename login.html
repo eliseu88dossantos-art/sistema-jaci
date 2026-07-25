@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAYANNE - Login</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#10b981">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LAYANNE">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      background: #0a1628;
+      overflow: hidden;
+    }
+
+    .login-left {
+      flex: 1;
+      background: linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 70%, #10b981 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-left::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .login-left::after {
+      content: '';
+      position: absolute;
+      bottom: -150px;
+      left: -150px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(20,184,166,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .login-hero {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: white;
+    }
+
+    .login-hero-icon {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      margin: 0 auto 32px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .login-hero h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .login-hero h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      opacity: 0.7;
+      margin-bottom: 40px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+    }
+
+    .login-hero p {
+      font-size: 15px;
+      opacity: 0.6;
+      line-height: 1.8;
+      max-width: 400px;
+    }
+
+    .floating-shapes {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.03;
+      background: white;
+    }
+
+    .shape-1 { width: 300px; height: 300px; top: -50px; left: -50px; animation: float 20s infinite; }
+    .shape-2 { width: 200px; height: 200px; bottom: 100px; right: -30px; animation: float 15s infinite reverse; }
+    .shape-3 { width: 150px; height: 150px; top: 40%; left: 20%; animation: float 25s infinite; }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(20px, -20px) rotate(5deg); }
+      50% { transform: translate(-10px, 20px) rotate(-5deg); }
+      75% { transform: translate(15px, 10px) rotate(3deg); }
+    }
+
+    .login-right {
+      width: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px;
+      background: #ffffff;
+      position: relative;
+    }
+
+    .login-form-container {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .login-form-header {
+      margin-bottom: 40px;
+    }
+
+    .login-form-header h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .login-form-header p {
+      font-size: 14px;
+      color: #6c757d;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper .icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      opacity: 0.4;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px 14px 48px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s;
+      background: #f8f9fa;
+      color: #1a1a2e;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #10b981;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(16,185,129,0.1);
+    }
+
+    .form-group input::placeholder {
+      color: #adb5bd;
+    }
+
+    .remember-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .remember-row label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #6c757d;
+      cursor: pointer;
+    }
+
+    .remember-row label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #10b981;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 1px;
+    }
+
+    .btn-login:hover {
+      background: linear-gradient(135deg, #059669, #047857);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16,185,129,0.3);
+    }
+
+    .btn-login:active {
+      transform: translateY(0);
+    }
+
+    .login-error {
+      display: none;
+      background: #f8d7da;
+      color: #842029;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      border-left: 4px solid #dc3545;
+      animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .login-footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 12px;
+      color: #adb5bd;
+    }
+
+    .login-footer a {
+      color: #10b981;
+      text-decoration: none;
+    }
+
+    .medical-icons {
+      display: flex;
+      gap: 24px;
+      margin-top: 40px;
+      opacity: 0.4;
+    }
+
+    .medical-icons span {
+      font-size: 28px;
+    }
+
+    .setup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .setup-overlay.active {
+      display: flex;
+    }
+
+    .setup-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      width: 420px;
+      max-width: 90vw;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .setup-card h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #1a1a2e;
+    }
+
+    .setup-card .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .setup-card .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+    }
+
+    @media (max-width: 992px) {
+      body { flex-direction: column; }
+      .login-left { padding: 40px 20px; min-height: 40vh; }
+      .login-right { width: 100%; flex: 1; padding: 40px 20px; }
+      .login-hero h1 { font-size: 32px; }
+      .login-hero h2 { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-left">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    <div class="login-hero">
+      <div class="login-hero-icon">🏥</div>
+      <h1>LAYANNE</h1>
+      <h2>Painel de Estudos</h2>
+        <p>Seu painel completo de estudos para o curso de Tecnico em Enfermagem. Estude, pratique e conquiste sua aprovacao no COREN-AP.</p>
+      <div class="medical-icons">
+        <span>🩺</span>
+        <span>💊</span>
+        <span>🫀</span>
+        <span>🩹</span>
+        <span>💉</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <div class="login-form-container">
+      <div class="login-form-header">
+        <h3>Bem-vindo(a) de volta</h3>
+        <p>Entre com suas credenciais para acessar o painel</p>
+      </div>
+
+      <div class="login-error" id="loginError">
+        Usuario ou senha incorretos. Tente novamente.
+      </div>
+
+      <form id="loginForm" onsubmit="return handleLogin(event)">
+        <div class="form-group">
+          <label>Usuario</label>
+          <div class="input-wrapper">
+            <span class="icon">👤</span>
+            <input type="text" id="username" placeholder="Digite seu usuario" autocomplete="username" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Senha</label>
+          <div class="input-wrapper">
+            <span class="icon">🔒</span>
+            <input type="password" id="password" placeholder="Digite sua senha" autocomplete="current-password" required>
+          </div>
+        </div>
+
+        <div class="remember-row">
+          <label>
+            <input type="checkbox" id="rememberMe"> Lembrar de mim
+          </label>
+          <a href="#" onclick="showSetup()" style="color:#10b981;text-decoration:none;font-size:13px;font-weight:500">Primeiro acesso?</a>
+        </div>
+
+        <button type="submit" class="btn-login">ENTRAR NO PAINEL</button>
+      </form>
+
+      <div class="login-footer">
+        <p>LAYANNE v2.0 &copy; 2025 | COREN-AP | Faculdade Madre Tereza</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Setup Inicial -->
+  <div class="setup-overlay" id="setupOverlay">
+    <div class="setup-card">
+      <h3>⚙️ Configurar Credenciais</h3>
+      <p style="font-size:13px;color:#6c757d;margin-bottom:20px">
+        Defina seu usuario e senha para acessar o painel. Estes dados serao salvos apenas no seu navegador.
+      </p>
+      <div class="form-group">
+        <label>Novo Usuario</label>
+        <div class="input-wrapper">
+          <span class="icon">👤</span>
+          <input type="text" id="setupUser" placeholder="Defina seu usuario">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Nova Senha</label>
+        <div class="input-wrapper">
+          <span class="icon">🔒</span>
+          <input type="password" id="setupPass" placeholder="Defina sua senha">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Confirmar Senha</label>
+        <div class="input-wrapper">
+          <span class="icon">🔒</span>
+          <input type="password" id="setupPassConfirm" placeholder="Confirme sua senha">
+        </div>
+      </div>
+      <button class="btn-primary" onclick="handleSetup()">SALVAR CREDENCIAIS</button>
+      <button onclick="closeSetup()" style="width:100%;padding:12px;background:none;border:none;color:#6c757d;font-size:14px;cursor:pointer;margin-top:8px;font-family:Inter,sans-serif">Cancelar</button>
+    </div>
+  </div>
+
+  <script>
+    function getCredentials() {
+      const stored = localStorage.getItem('layanne_credentials');
+      if (stored) return JSON.parse(stored);
+      return { user: 'layanne', pass: 'enfermagem2025' };
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const creds = getCredentials();
+
+      if (username === creds.user && password === creds.pass) {
+        sessionStorage.setItem('layanne_auth', 'true');
+        sessionStorage.setItem('layanne_user', username);
+        window.location.href = 'index.html';
+      } else {
+        const err = document.getElementById('loginError');
+        err.style.display = 'block';
+        err.textContent = 'Usuario ou senha incorretos. Tente novamente.';
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+      }
+      return false;
+    }
+
+    function showSetup() {
+      document.getElementById('setupOverlay').classList.add('active');
+    }
+
+    function closeSetup() {
+      document.getElementById('setupOverlay').classList.remove('active');
+    }
+
+    function handleSetup() {
+      const user = document.getElementById('setupUser').value.trim();
+      const pass = document.getElementById('setupPass').value;
+      const confirm = document.getElementById('setupPassConfirm').value;
+
+      if (!user || !pass) {
+        alert('Preencha todos os campos.');
+        return;
+      }
+      if (pass !== confirm) {
+        alert('As senhas nao conferem.');
+        return;
+      }
+      if (pass.length < 4) {
+        alert('A senha deve ter no minimo 4 caracteres.');
+        return;
+      }
+
+      localStorage.setItem('layanne_credentials', JSON.stringify({ user, pass }));
+      alert('Credenciais salvas com sucesso! Faca login agora.');
+      closeSetup();
+      document.getElementById('username').value = user;
+      document.getElementById('password').focus();
+    }
+
+    // Verificar se ja esta logado
+    if (sessionStorage.getItem('layanne_auth') === 'true') {
+      window.location.href = 'index.html';
+    }
+
+    // Verificar se e primeiro acesso
+    if (!localStorage.getItem('layanne_credentials')) {
+      document.getElementById('loginError').style.display = 'block';
+      document.getElementById('loginError').style.background = '#d1e7dd';
+      document.getElementById('loginError').style.color = '#0f5132';
+      document.getElementById('loginError').style.borderLeftColor = '#198754';
+      document.getElementById('loginError').textContent = '👋 Primeiro acesso! Clique em "Primeiro acesso?" para configurar seu usuario e senha.';
+    }
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</body>
+</html>
